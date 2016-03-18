@@ -1,0 +1,33 @@
+From a5f822cabb0932beaa772dc9a1e622e390ba38cf Mon Sep 17 00:00:00 2001
+From: Thomas Orozco <thomas@orozco.fr>
+Date: Fri, 18 Mar 2016 19:48:04 +0100
+Subject: [PATCH 1/1] Add container_id as tag
+
+Dereferenced aliases can be nice, but a predictable container ID is nice
+too.
+---
+ storage/influxdb/influxdb.go | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/storage/influxdb/influxdb.go b/storage/influxdb/influxdb.go
+index 82739b5..4aeb89d 100644
+--- a/storage/influxdb/influxdb.go
++++ b/storage/influxdb/influxdb.go
+@@ -101,6 +101,7 @@ const (
+ const (
+ 	tagMachineName   string = "machine"
+ 	tagContainerName string = "container_name"
++	tagContainerId   string = "container_id"
+ )
+ 
+ func (self *influxdbStorage) containerFilesystemStatsToPoints(
+@@ -158,6 +159,7 @@ func (self *influxdbStorage) tagPoints(ref info.ContainerReference, stats *info.
+ 	commonTags := map[string]string{
+ 		tagMachineName:   self.machineName,
+ 		tagContainerName: containerName,
++		tagContainerId:   ref.Name,
+ 	}
+ 	for i := 0; i < len(points); i++ {
+ 		// merge with existing tags if any
+-- 
+1.9.1

@@ -1,0 +1,17 @@
+FROM quay.io/aptible/debian:jessie
+
+ENV CADVISOR_VERSION <%= ENV.fetch 'CADVISOR_VERSION' %>
+
+# Install Cadvisor
+ADD patches /patches
+ADD bin/build-cadvisor.sh /
+RUN /build-cadvisor.sh
+
+# Port
+EXPOSE 8080
+
+# Entrypoint
+
+ADD bin/docker-entrypoint.sh /docker-entrypoint.sh
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["cadvisor"]
