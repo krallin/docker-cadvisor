@@ -10,15 +10,17 @@ if [ "$1" = "cadvisor" ]; then
   # Set arguments for cadvisor
   set -- \
     "cadvisor" \
-    "-logtostderr" \
-    "-storage_driver_secure" \
-    "-storage_driver=influxdb" \
-    "-storage_driver_host=$INFLUXDB_HOST:$INFLUXDB_PORT" \
-    "-storage_driver_user=$INFLUXDB_USER" \
-    "-storage_driver_password=$INFLUXDB_PASSWORD" \
-    "-storage_driver_db=$INFLUXDB_DATABASE" \
-    "-http_auth_file=$auth_file" \
-    "-http_auth_realm=cadvisor"
+    "--logtostderr" \
+    "--storage_driver_secure" \
+    "--storage_driver=influxdb" \
+    "--storage_driver_host=$INFLUXDB_HOST:$INFLUXDB_PORT" \
+    "--storage_driver_user=$INFLUXDB_USER" \
+    "--storage_driver_password=$INFLUXDB_PASSWORD" \
+    "--storage_driver_db=$INFLUXDB_DATABASE" \
+    "--http_auth_file=$auth_file" \
+    "--http_auth_realm=cadvisor" \
+    "--housekeeping_interval=${CADVISOR_HOUSEKEEPING_INTERVAL:="30s"}" \
+    "--global_housekeeping_interval=${CADVISOR_GLOBAL_HOUSEKEEPING_INTERVAL:="2m"}"
 fi
 
 exec "$@"
