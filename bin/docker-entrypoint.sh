@@ -20,7 +20,8 @@ if [ "$1" = "cadvisor" ]; then
     "--http_auth_file=$auth_file" \
     "--http_auth_realm=cadvisor" \
     "--housekeeping_interval=${CADVISOR_HOUSEKEEPING_INTERVAL:="30s"}" \
-    "--global_housekeeping_interval=${CADVISOR_GLOBAL_HOUSEKEEPING_INTERVAL:="2m"}"
+    "--global_housekeeping_interval=${CADVISOR_GLOBAL_HOUSEKEEPING_INTERVAL:="2m"}" \
+    "--disable_metrics=${CADVISOR_DISABLED_METRICS:="disk,tcp"}"
 fi
 
 exec "$@"
